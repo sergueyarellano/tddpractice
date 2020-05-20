@@ -1,0 +1,17 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/*.test.js | tap-nirvana",
+    "watch": "nodemon --exec \"npm run test\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "tap-nirvana": "^1.1.0",
+    "tape": "^5.0.0"
+  }
+}
