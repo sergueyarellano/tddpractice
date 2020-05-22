@@ -551,11 +551,23 @@ function applyOperator (input) {
 }
 ```
 
-At first it is tough, but see what you have accomplished
+At first it is tough, but see what we have accomplished
 
 - good coverage of your code
 - feeling of having done a good job
 - proof that you care about what you code
 
-> Remember to implement cases for handling errors, but be careful, don't  make new abstractions that you don't need yet. Follow the process, it will tell you when to refactor. First, write the test case if needed.
+> Remember to implement cases for handling errors, but be careful, don't  make new abstractions that you don't need yet. Follow the process, it will tell you when to refactor, that's what you get with experience. First, write the test case. watch it fail, implement, watch it pass, refactor.
 
+
+Lastly, require `complyWith` from your generic steps file.
+
+# Summary
+
+PM, client and developer are in the same page when they talk and agreed on scenarios for specific features.
+
+We implemented the steps for that specific scenario in cucumber, using TDD in the process to design validators and other helper functions.
+
+We did not write a single line of production code to set up our integration tests, which proves the BDD principle of `black box` testing or not caring about implementation details.
+
+In part four we will dive into production code using TDD and finally satisfying our BDD tests

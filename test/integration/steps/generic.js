@@ -2,7 +2,7 @@ const { defineStep } = require('cucumber')
 const { deepStrictEqual } = require('assert')
 const got = require('got')
 const get = require('lodash.get')
-const { isValidInterface } = require('../../../app/validators')
+const { isValidInterface, complyWith } = require('../../../app/validators')
 
 defineStep('request headers', async function (table) {
   this.headers = table.rowsHash()
