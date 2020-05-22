@@ -7,7 +7,7 @@
     "test": "node test/unit/*.test.js | tap-nirvana",
     "watch": "nodemon --exec \"npm run test\"",
     "e2e": "cucumber-js test/integration/features --require test/integration/steps --require test/integration/support -f node_modules/cucumber-pretty",
-    "watch:e2e" : "nodemon -e feature --exec \"npm run e2e\""
+    "watch:e2e": "nodemon -e feature,js --exec \"npm run e2e\""
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +19,9 @@
     "standard": "^14.3.4",
     "tap-nirvana": "^1.1.0",
     "tape": "^5.0.0"
+  },
+  "dependencies": {
+    "got": "^11.1.4",
+    "lodash.get": "^4.4.2"
   }
 }
