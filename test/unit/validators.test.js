@@ -1,5 +1,6 @@
 const test = require('tape')
 const { isValidInterface, substituteOperators, complyWith } = require('../../app/validators')
+const deepFreeze = require('deep-freeze')
 
 test('isValidInterface() should take an interface model and an input object and check for type matching', function ({ deepEqual, end }) {
   const model = {
@@ -54,15 +55,30 @@ test('complyWith() should take an input object and some restrictions and check t
   const data = {
     distance: 100
   }
-  const actual = complyWith(data, restrictions)
-  const expected = true
-  deepEqual(actual, expected)
+  const data2 = [{ distance: 100 }, { distance: 222 }]
+  const data3 = [{ distance: 100 }, { distance: 150 }]
+
+  {
+    const actual = complyWith(data, deepFreeze(restrictions))
+    const expected = true
+    deepEqual(actual, expected, 'input is not an array')
+  }
+  {
+    const actual = complyWith(data2, restrictions)
+    const expected = false
+    deepEqual(actual, expected, 'input is an array but does not comply')
+  }
+  {
+    const actual = complyWith(data3, restrictions)
+    const expected = true
+    deepEqual(actual, expected, 'input is an array, and complies')
+  }
   end()
 })
 
 test('substituteOperators() should map operator property with the correct method', function ({ deepEqual, end }) {
   const restrictions = [{ property: 'distance', operator: 'less than', value: '200' }]
-  const restriction = substituteOperators(restrictions)[0]
+  const restriction = substituteOperators(deepFreeze(restrictions))[0]
 
   {
     const actual = restriction.operator(1, 2)

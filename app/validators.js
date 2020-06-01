@@ -1,3 +1,5 @@
+const cloneDeep = require('lodash.clonedeep')
+
 module.exports = {
   isValidInterface,
   substituteOperators,
@@ -25,22 +27,26 @@ function checkTypeWith (input, model) {
 
 function complyWith (input, restrictions) {
   const formattedRestrictions = substituteOperators(restrictions)
-  return formattedRestrictions.every(applyOperator(input))
+  return Array.isArray(input)
+    ? input.every(element => formattedRestrictions.every(applyOperator(element)))
+    : formattedRestrictions.every(applyOperator(input))
 }
 
 function applyOperator (input) {
   return restriction => {
     const value = input[restriction.property]
-    return restriction.operator(value, restriction.value)
+    const result = restriction.operator(value, restriction.value)
+    return result
   }
 }
 
 function substituteOperators (restrictions) {
+  const newRestrictions = cloneDeep(restrictions)
   // table hashes:  [ { property: 'distance', operator: 'less than', value: '200' } ]
   const operators = {
-    'less than': (a, b) => a < b
+    'less than': (a, b) => Number(a) < Number(b)
   }
-  return restrictions.map(substituteOperator(operators))
+  return newRestrictions.map(substituteOperator(operators))
 }
 
 function substituteOperator (operators) {

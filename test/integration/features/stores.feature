@@ -8,8 +8,8 @@ Feature: Stores
     When I make a "GET" request to "stores"
     Then I receive a 200 status code response
     And every element on "body" property has "interface"
-      | metadata | Object |
-      | data     | Array  |
+      | metadata | object |
+      | data     | array  |
     And "body.data" property has more than 1 element
     And every element on "body.data" property has "interface"
       | type        | string |

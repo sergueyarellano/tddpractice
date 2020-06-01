@@ -12,7 +12,8 @@ defineStep('I make a {string} request to {string}', async function (method, endp
   const headers = this.headers
   const uri = new URL(endpoint, 'http://localhost:3000')
   const options = { headers, method }
-  this.response = await got(uri, options).json()
+  this.response = await got(uri, options)
+  this.response.body = JSON.parse(get(this.response, 'body', '{}'))
 })
 
 defineStep('I receive a {int} status code response', async function (status) {

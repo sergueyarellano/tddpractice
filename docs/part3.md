@@ -17,8 +17,8 @@ Feature: Stores
     When I make a "GET" request to "stores"
     Then I receive a 200 status code response
     And every element on "body" property has "interface"
-      | metadata | Object |
-      | data     | Array  |
+      | metadata | object |
+      | data     | array  |
     And "body.data" property has more than 1 element
     And every element on "body.data" property has "interface"
       | type        | string |
@@ -69,7 +69,10 @@ defineStep('I make a {string} request to {string}', async function (method, endp
   const headers = this.headers // get headers previously saved to the world store
   const uri = new URL(endpoint, 'localhost:3000') // Compose URL with WHATWG URL API
   const options = { headers, method } // Create request options
-  this.response = await got(uri, options).json() // save the response in the world namespace
+
+  // save the response in the world namespace and parse the body
+  this.response = await got(uri, options) 
+  this.response.body = JSON.parse(get(this.response, 'body', '{}'))
 })
 ```
 At this point you should an error like:
@@ -548,6 +551,17 @@ function applyOperator (input) {
     const value = input[restriction.property]
     return restriction.operator(value, restriction.value)
   }
+}
+```
+
+And add a test case for input arrays
+
+```js
+function complyWith (input, restrictions) {
+  const formattedRestrictions = substituteOperators(restrictions)
+  return Array.isArray(input)
+    ? input.every(element => formattedRestrictions.every(applyOperator(element)))
+    : formattedRestrictions.every(applyOperator(input))
 }
 ```
 
