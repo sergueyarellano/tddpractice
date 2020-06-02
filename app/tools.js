@@ -11,15 +11,20 @@ module.exports = {
   mapKeysWith,
   mapResponse,
   createResult,
-  filterResponse
+  applyFilters,
+  setWith
 }
 
-function filterResponse (payload) {
-  const newPayload = cloneDeep(payload)
-  const data = get(newPayload, 'data.mappedResponse', [])
-  const filters = get(newPayload, 'data.config.filters', [])
-  const filtered = data.filter(element => filters.every(filter => filter(element)))
-  return set(newPayload, 'data.mappedResponse', filtered)
+function setWith (path, modifier) {
+  return payload => {
+    const newPayload = cloneDeep(payload)
+    const data = get(newPayload, path)
+    return set(newPayload, path, modifier(data))
+  }
+}
+
+function applyFilters (filters) {
+  return data => data.filter(element => filters.every(filter => filter(element)))
 }
 
 function createResult (payload) {

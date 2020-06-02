@@ -10,7 +10,7 @@ defineStep('request headers', async function (table) {
 
 defineStep('I make a {string} request to {string}', async function (method, endpoint) {
   const headers = this.headers
-  const uri = new URL(endpoint, 'http://localhost:3000')
+  const uri = new URL(endpoint, process.env.HOST)
   const options = { headers, method }
   this.response = await got(uri, options)
   this.response.body = JSON.parse(get(this.response, 'body', '{}'))

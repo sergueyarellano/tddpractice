@@ -1,5 +1,8 @@
 const express = require('express')
-const { pipe, lift, composeRequest, mapResponse, createResult, filterResponse } = require('./tools')
+const {
+  pipe, lift, composeRequest, mapResponse, createResult,
+  setWith, applyFilters
+} = require('./tools')
 const { makeRequest } = require('./network')
 const app = express()
 const port = process.env.PORT || 3000
@@ -24,7 +27,7 @@ app.get('/stores', async (req, res) => {
     composeRequest,
     makeRequest,
     mapResponse,
-    filterResponse,
+    setWith('data.mappedResponse', applyFilters(config.filters)),
     createResult
   )(lift(config))
 

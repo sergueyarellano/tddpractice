@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tape test/unit/*js | tap-nirvana",
     "watch": "nodemon --exec \"npm run test\"",
-    "e2e": "cucumber-js test/integration/features --require test/integration/steps --require test/integration/support -f node_modules/cucumber-pretty",
+    "e2e": "HOST=http://localhost:3000 cucumber-js test/integration/features --require test/integration/steps --require test/integration/support -f node_modules/cucumber-pretty",
     "watch:e2e": "nodemon -e feature,js --exec \"npm run e2e\""
   },
   "author": "",

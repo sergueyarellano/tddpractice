@@ -32,11 +32,11 @@ module.exports = {
 let's see how we can use that API:
 
 ```javascript
-const template = 'connected/{vin}/{action}'
-const params =  {vin: 123, action: 'battery'}
-const endpoint = replaceParams(template, params) // connected/123/battery
+const template = 'api/{id}/{action}'
+const params =  {id: 123, action: 'run'}
+const endpoint = replaceParams(template, params) // api/123/run
 const host = process.env.HOST
-const uri = composeUrl(host, endpoint) // http://api.name.com/connected/123/battery
+const uri = composeUrl(host, endpoint) // http://api.name.com/api/123/run
 const requestOptions = { uri }
 ```
 

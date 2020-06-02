@@ -1,5 +1,5 @@
 const test = require('tape')
-const { pipe, lift, composeRequest, mapKeysWith, mapResponse, createResult, filterResponse } = require('../../app/tools')
+const { pipe, lift, composeRequest, mapKeysWith, mapResponse, createResult, filterResponse, setWith, applyFilters } = require('../../app/tools')
 const deepFreeze = require('deep-freeze')
 
 test('async pipe', async function ({ deepEqual, end }) {
@@ -164,27 +164,31 @@ test('createResult() should produce a formatted structure to use as response', a
   end()
 })
 
-test('filterResponse() should apply filters specified in config object to mappedResponse', async function ({ deepEqual, end }) {
-  const payload = {
-    data: {
-      config: {
-        filters: [
-          (element) => element.x < 4
-        ]
-      },
-      mappedResponse: [
-        { x: 1, y: 2 },
-        { x: 3, y: 4 },
-        { x: 5, y: 6 }
-      ]
-    }
-  }
-  const result = filterResponse(deepFreeze(payload))
-  const actual = result.data.mappedResponse
+test('applyFilters() should apply filters to every element in the array passed', async function ({ deepEqual, end }) {
+  const filters = [(element) => element.x < 4]
+  const data = [
+    { x: 1, y: 2 },
+    { x: 3, y: 4 },
+    { x: 5, y: 6 }
+  ]
+  const actual = applyFilters(filters)(deepFreeze(data))
   const expected = [
     { x: 1, y: 2 },
     { x: 3, y: 4 }
   ]
   deepEqual(actual, expected)
+  end()
+})
+
+test('setWith() takes a path and a function', async function ({ deepEqual, end }) {
+  const payload = {
+    event: {
+      body: '{"a": 1, "foo": "bar"}'
+    }
+  }
+  const result = setWith('event.body', JSON.parse)(deepFreeze(payload))
+  const actual = result.event.body
+  const expected = { a: 1, foo: 'bar' }
+  deepEqual(actual, expected, 'applies JSON.parse to the value assigned to that path')
   end()
 })
