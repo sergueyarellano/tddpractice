@@ -7,7 +7,8 @@ Some Preparation and mental models
 
 TDD encourages simple designs and inspires confidence
 
-It is a development process based on repetion of a simple cycle:
+It is a development process based on repetion of a simple cycle: 
+
 
 - Add a test and see it fail
 - Write minimal expression of code to make the test pass
