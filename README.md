@@ -48,9 +48,6 @@ The series consists on applying BDD, TDD workflow in
 - a Node JS environment where we will create an express app with a declarative and functional style.
 - A front-end environment where we will create a React app with the help of browser automation.
 
-Thanks to [TribalScale](https://www.tribalscale.com/) for supporting and financing these series.
-
-> We do what we do, because of who we are. If we did otherwise, we would not be ourselves. -- Neil Gaiman
 
 # Backend - Node JS
 
@@ -62,4 +59,49 @@ Thanks to [TribalScale](https://www.tribalscale.com/) for supporting and financi
 - [Refactoring and some notes](docs/part5.md)
 
 
+# Many Thanks
 
+to TribalScale for supporting and financing the series.
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/TribalScale.png">
+        <br>
+        <a href="https://tribalscale.com">TribalScale</a>
+        <br>
+      </td>
+     </tr>
+  </tbody>
+</table>
+
+And to these amazing people that collaborated:
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/Rhammermueller.png">
+        <br>
+        <a href="https://github.com/Rhammermueller">Rachel Hammermueller</a>
+        <p>Content Writer</p>
+        <p>@ <a href="https://tribalscale.com">TribalScale</a></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/jmillsts.png">
+        <br>
+        <a href="https://github.com/jmillsts">Jason Mills</a>
+        <p>Director of Engineering</p>
+        <p>@ <a href="https://tribalscale.com">TribalScale</a></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/alfietham.png">
+        <br>
+        <a href="https://github.com/alfietham">Alfie Tham</a>
+        <p>Director of Engineering</p>
+        <p>@ <a href="https://tribalscale.com">TribalScale</a></p>
+      </td>
+     </tr>
+  </tbody>
+</table>
