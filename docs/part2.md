@@ -1,7 +1,12 @@
-TDD, BDD in javascript - part two
+TDD, BDD in Node JS - Part Two
 ===
 
 In part one I wrote about some concerns and decisions we need to make before adding TDD, BDD to our workflow. In part two we are going to focus in setting up our environment.
+
+You will learn:
+
+- basic `Cucumber JS` setup for a Node project with BDD
+- basic `Tape` setup to unit test your functions
 
 # Set up
 
@@ -36,7 +41,7 @@ Feature: Simple maths
     Then the variable should contain 2
 ```
 
-Gherkin language is a high level language that anybody can use, like your PM or the client. The idea here is to talk to them to write some features that will serve us as acceptance criteria and testing scenarios at the same time.
+Gherkin language is a high level language that anybody can use, like your PM or the customer. The idea here is to talk to them to write some features that will serve us as acceptance criteria and testing scenarios at the same time.
 
 generic.js
 ```js
@@ -106,7 +111,7 @@ You should add the next npm scripts to package.json:
 
 ```json
   "scripts": {
-    "test": "node test/unit/*.test.js | tap-nirvana",
+    "test": "tape test/unit/*.test.js | tap-nirvana",
     "watch": "nodemon --exec \"npm run test\"",
     "e2e": "cucumber-js test/integration/features --require test/integration/steps --require test/integration/support -f node_modules/cucumber-pretty",
     "watch:e2e" : "nodemon -e feature --exec \"npm run e2e\""

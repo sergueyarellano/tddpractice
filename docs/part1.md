@@ -1,15 +1,25 @@
-TDD, BDD in javascript - Part One
+TDD, BDD in Node JS - Part One
 ===
 
-Some Preparation and Mental Models
-===
+Welcome to this workshop series. It is a series consisting in five parts focusing on the application of BDD, TDD to our every day workflow for an express/NodeJS application.
 
+In Part One we will discuss some mental models and patterns that will help us in our way to build a loosely coupled app.
+
+You will learn:
+- basic knowledge of how BDD and TDD integrates in your workflow
+- some mental models and preparation that needs to be done before implementing BDD and TDD. 
+- patterns and abstractions that go well with TDD
+- some functional programming concepts
+
+Come along and let's start with some preparation :)
+
+# Some Preparation and Mental Models
 
 Test-driven development (TDD) encourages simple designs and inspires confidence
 
 It is a development process based on repetition of a simple cycle:
 
-- Add a test and see it fail
+- Add a test and watch it fail
 - Write minimal expression of code to make the test pass
 - Refactor code
 
@@ -19,7 +29,7 @@ We use this process because it encourages us to focus more on an interface rathe
 
 We are not going to see tests yet, just some mental models.
 
-Let's take a look at one of my backend's modules
+Let's take a look at one of my back-end's modules
 
 ```javascript
 module.exports = {
