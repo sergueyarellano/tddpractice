@@ -1,9 +1,20 @@
-TDD, BDD in javascript - part four
+TDD, BDD in Node JS - Part Four
 ===
 
 In part three we got our first feature and implemented its steps in cucumber. We did everything using TDD as part of our BDD process.
 
-In part four we will try to apply TDD to produce our production code. First, let's analyze the feature we got.
+In part four we will try to apply TDD to produce our production code. 
+
+What you will learn:
+- Use of cucumber hooks to prepare the environment
+- Spawn processes in Node JS
+- Use of BDD and TDD as a workflow
+- Functional patterns
+- The "wrong first approach"
+
+# Start stubs with cucumber hooks
+
+First, let's analyze the feature we got.
 
 ```gherkin
 Feature: Stores
@@ -96,7 +107,7 @@ function killProcess (child) {
 }
 ```
 
-As you can see, integration tests requires a little bit more of preparation. But why? Think about what integration means, we are not testing atomic parts of our program, we are going out of that loop and testing the interconnection between larger pieces. Sounds scary, but the rewards are high. You can now present this tests to the client to sign off when the feature is completed. See it as proof, as acceptance criteria.
+As you can see, integration tests requires a little bit more of preparation. But why? Think about what integration means, we are not testing atomic parts of our program, we are going out of that loop and testing the interconnection between larger pieces. Sounds scary, but the rewards are high. You can now present this tests to the customer to sign off when the feature is completed. See it as proof, as acceptance criteria.
 
 
 Well, if you were able to start and halt correctly the server using the hooks, you should see something like this:
@@ -316,7 +327,7 @@ app.get('/stores', (req, res) => {
 tools.test.js
 ```js
 ...
-test('composeRequest() should compose request options so they can be consumed by the GOT http client module ', async function ({ deepEqual, end }) {
+test('composeRequest() should compose request options so they can be consumed by the GOT http customer module ', async function ({ deepEqual, end }) {
   const config = {
     endpoint: 'foo',
     host: 'http://localhost:3333',
@@ -386,7 +397,7 @@ $ npm i -D deep-freeze
 
 tools.test.js
 ```js
-test('composeRequest() should compose request options so they can be consumed by the GOT http client module ', async function ({ deepEqual, end }) {
+test('composeRequest() should compose request options so they can be consumed by the GOT http customer module ', async function ({ deepEqual, end }) {
   const config = {
     endpoint: 'foo',
     host: 'http://localhost:3333',

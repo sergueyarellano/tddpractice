@@ -1,10 +1,18 @@
-TDD, BDD in javascript - part three
+TDD, BDD in Node JS - Part Three
 ===
 
-In part two we set our environment. For part three let's talk to our PM and to our client so we, as a team can understand what type of features the client wants to get done. We will use Gherkin as natural language to try and achieve this.
+In part two we set our environment. For part three let's talk to our PM and to our customer so we, as a team can understand what type of features the customer wants to get done. We will use Gherkin as natural language to try and achieve this.
+
+You will learn:
+
+- Gherkin as a tool to create acceptance criteria
+- importance of communication between customer and PM
+- Black box testing or to "stop caring about the implementation"
+- Match Gherkin steps with Cucumber JS
+- Use TDD to write Validators
 
 # Writing features
-The client needs a backend app that integrates other API's from third parties, but we need more specificity from the client, in order to be in the same page, this is what the client, my PM and I agreed on doing.
+The customer needs a backend app that integrates other API's from third parties, but we need more specificity from the customer, in order to be in the same page, this is what the customer, my PM and I agreed on doing.
 
 ```gherkin
 Feature: Stores
@@ -58,7 +66,7 @@ defineStep('request headers', async function (table) {
 
 For the step that says `I make a "GET" request to "stores"` we are going to actually make a request to our `stores` endpoint.
 
-Firstly, let's install an http client
+Firstly, let's install an http customer
 
 `npm i -S got`
 
@@ -578,7 +586,7 @@ Lastly, require `complyWith` from your generic steps file.
 
 # Summary
 
-PM, client and developer are in the same page when they talk and agreed on scenarios for specific features.
+PM, customer and developer are in the same page when they talk and agreed on scenarios for specific features.
 
 We implemented the steps for that specific scenario in cucumber, using TDD in the process to design validators and other helper functions.
 

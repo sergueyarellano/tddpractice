@@ -1,7 +1,15 @@
-TDD, BDD in javascript - part five
+TDD, BDD in Node JS - Part Five
 ===
 
 In part 4 we implemented the necessary code to satisfy the assertions we made in the acceptance criteria we stipulated with the customer/PO and PM for that specific feature.
+
+In part five you will learn:
+- the importance of decision making in BDD, TDD projects
+- Possible problems and how to approach them
+- How to approach a refactor
+- Execute your integration tests against different environments
+
+# There will be obstacles
 
 ```gherkin
 Feature: Stores
