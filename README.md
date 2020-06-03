@@ -48,6 +48,10 @@ The series consists on applying BDD, TDD workflow in
 - a Node JS environment where we will create an express app with a declarative and functional style.
 - A front-end environment where we will create a React app with the help of browser automation.
 
+Thanks to [TribalScale](https://www.tribalscale.com/) for supporting and financing these series.
+
+> We do what we do, because of who we are. If we did otherwise, we would not be ourselves. -- Neil Gaiman
+
 # Backend - Node JS
 
 
