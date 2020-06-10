@@ -20,7 +20,7 @@ TDD saves everybody in your team a lot of time. Putting in place some continuous
 
 If we complement TDD with Behavior driven development (BDD), then we can go home knowing we are doing the good thing.
 
-> I like to sleep good at night, that is why I TDD and BDD
+> I like to sleep good at night, that is why I TDD and BDD   
 
 TDD process is more focused in unit testing while BDD (branch of TDD) is more focused on producing integration tests with a concept we call "black box testing".
 
