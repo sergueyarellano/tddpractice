@@ -24,6 +24,8 @@ If we complement TDD with Behavior driven development (BDD), then we can go home
 
 TDD process is more focused in unit testing while BDD (branch of TDD) is more focused on producing integration tests with a concept we call "black box testing".
 
+# Pyramid of testing
+
 The problem I see that a lot of companies have is the "inverted pyramid of testing". Firstly, it is not cost effective.
 <table>
   <tbody>
@@ -56,13 +58,68 @@ The series consists on applying BDD, TDD workflow in
 - a Node JS environment where we will create an express app with a declarative and functional style.
 - A front-end environment where we will create a React app with the help of browser automation.
 
+# Why
 
-# Backend - Node JS
+As I always say to my team mates, 
+
+> let's do what we have to do to sleep better at night
+
+The above is just a consequence of feeling responsible for what we code. To have a safety net of tests always enhances confidence reducing the "merge fear" or "fear of change" when it comes to adding new features or refactoring.
+
+# But we don't have time to do TDD
+
+It is just a misconception that TDD slows down the delivery model. Normally an unexperienced developer would spend more time on the process because firstly, one needs to learn how to do things and adapt. Also it requires discipline.
+
+> A mentor can break the mental barrier that most of newcomers have.
+
+It is really normal to try adopting TDD and quit 5 minutes later, it feels boring and developers get discouraged if they don't know what to test, where to put the focus on or how to do it. As I commented in the "backend series" you need to first understand patterns and some models that work better with TDD. now would be a good time to revisit them. The process will help you understand them and also will improve your application architecture.
+
+Experienced developers will experiment an increase in speed when implementing new features and don't get me started with the amount of future bugs that using the technique avoids!
+
+> TDD is actually the fastest and more secure way to get features out there
+
+# What about Legacy code
+
+You have a customer, they hired another company months ago to build them software, they didn't do TDD and they have a big problem. Hold on to your seat!
+
+Nobody wants to admit that they have legacy code. The cadence was feature-based and now it is full of spaghetti code with innumerable “if else” (branching) statements everywhere. Now it is really difficult to do or refactor something without breaking other logic.
+
+> But they promised us they will refactor the code
+
+We have to be very careful at this point because usually the same developer that did not test its code is not going to test it “before starting the refactor process“. 
+
+# How to apply TDD to legacy code?
+
+You cannot, TDD is a process to build code, but if you want to start a process of refactoring so you can apply TDD afterwards, we can start with something
+
+Creat integration tests focusing on the functionality of the application/system. This approach would be called of “black box”, it means that we don’t need to care about implementation details. Nice right? It makes sense since what we have is something we don’t understand at a lower level. Using Gherkin and cucumber you can create a nice “feature” suite or even getting some coverage with POSTMAN if we are talking about backends it should be enough.
+
+When we finished writing those integration tests, we can approach a refactor, isolating different parts.
+
+If you can rewrite the feature it would be a nice time to set up an “assert” library of your choice. In javascript ecosystem we have lots of options. If we do that we can start a rewrite with TDD, writing the test first, watch it fail, implement the minimal expression of the assertion, seeing it pass, and refactor if needed both code and test. It is a discipline.
+
+But sometimes we don’t know where to start. This is my suggestion:
+
+START TESTING
+
+Know your tools, your unit test framework, or even try find different patterns that are going to help you implement features with TDD, does not matter if you as a developer start doing the test after implementing, but start testing now. You need to “fail fast” to understand the “why” of some concepts.
+
+Usually when you build a codebase with TDD, if you do it right, you find out separation of concerns. I mean, the business logic or how data is processed is separate from network layer (http clients), database connections, logging tools, etc. Why?
+
+PROGRAM TO INTERFACES, NOT IMPLEMENTATIONS
+
+That means that TDD enforces you to focus on how the consumer of those methods that you are creating is going to consume them maintaining a declarative way like “composeNames”, “replaceTags” or “getOrder”. Those methods are going to be somehow exposed in a module. What that module exposes is its API, and an API is nothing more than an interface. Focus on the interfaces.
 
 
-- [Preparation and mental models](docs/part1.md)
-- [BDD, TDD Framework set up](docs/part2.md)
-- [Writing features with Cucumber, BDD](docs/part3.md)
-- [Writing code with TDD](docs/part4.md)
-- [Refactoring and some notes](docs/part5.md)
+# Back-end - Node JS
 
+
+- [Preparation and mental models](docs/b.part1.md)
+- [BDD, TDD Framework set up](docs/b.part2.md)
+- [Writing features with Cucumber, BDD](docs/b.part3.md)
+- [Writing code with TDD](docs/b.part4.md)
+- [Refactoring and some notes](docs/b.part5.md)
+
+# Front-end - React
+
+- [Preparation and mental models](docs)
