@@ -90,26 +90,81 @@ We have to be very careful at this point because usually the same developer that
 
 # How to apply TDD to legacy code?
 
-You cannot, TDD is a process to build code, but if you want to start a process of refactoring so you can apply TDD afterwards, we can start with something
+You cannot, TDD is a process to build code, but if you want to start a process of refactoring so you can apply TDD afterwards, we can start with something.
 
-Creat integration tests focusing on the functionality of the application/system. This approach would be called of “black box”, it means that we don’t need to care about implementation details. Nice right? It makes sense since what we have is something we don’t understand at a lower level. Using Gherkin and cucumber you can create a nice “feature” suite or even getting some coverage with POSTMAN if we are talking about backends it should be enough.
+We can start creating integration tests focusing on the functionality of the application/system. This approach would be called “black box testing”, it means that we don’t need to care about implementation details. 
 
-When we finished writing those integration tests, we can approach a refactor, isolating different parts.
+Nice right? 
+
+It makes sense since what we have is something we don’t understand at a lower level. Using Gherkin and cucumber you can create a nice “feature” suite or even getting some coverage with POSTMAN if we are talking about back-end. That should be enough.
+
+When we finish writing those integration tests, we can approach a refactor, isolating different parts.
 
 If you can rewrite the feature it would be a nice time to set up an “assert” library of your choice. In javascript ecosystem we have lots of options. If we do that we can start a rewrite with TDD, writing the test first, watch it fail, implement the minimal expression of the assertion, seeing it pass, and refactor if needed both code and test. It is a discipline.
 
 But sometimes we don’t know where to start. This is my suggestion:
 
-START TESTING
+- Choose the simplest library like "tape"
+- Start testing
 
-Know your tools, your unit test framework, or even try find different patterns that are going to help you implement features with TDD, does not matter if you as a developer start doing the test after implementing, but start testing now. You need to “fail fast” to understand the “why” of some concepts.
+# Start testing
 
-Usually when you build a codebase with TDD, if you do it right, you find out separation of concerns. I mean, the business logic or how data is processed is separate from network layer (http clients), database connections, logging tools, etc. Why?
+Don't bother about TDD now. It is really important that you get used to test your craft. You will find obstacles, that's for sure:
 
-PROGRAM TO INTERFACES, NOT IMPLEMENTATIONS
+- How can mock this and that?
+- How can I set and remove the state before and after the tests
 
-That means that TDD enforces you to focus on how the consumer of those methods that you are creating is going to consume them maintaining a declarative way like “composeNames”, “replaceTags” or “getOrder”. Those methods are going to be somehow exposed in a module. What that module exposes is its API, and an API is nothing more than an interface. Focus on the interfaces.
+I have been there. They are all code smells.
 
+> Separate your side effects from your pure functions
+
+TDD and unit testing work better with pure functions
+
+> A pure function will produce always the same output when receiving the same input
+
+Understanding this separation of concerns will lead you to better architectures.
+
+I use BDD in my process, integration tests that cover those parts and side effects that I should not test with unit tests.
+
+# Know your tools
+
+Know your tools, your unit test framework, or even try find different patterns that are going to help you implement features with TDD, does not matter if your doing the test after implementing the code (for now), but start testing now. You need to “fail fast” to understand the “why” of some concepts.
+
+Usually when you build a codebase with TDD, if you do it right, you find out that the separation of concerns happens naturally:
+- the business logic or how data is processed is in one place
+- network layer (http clients)
+- database connections
+- logging tools
+- other side effects
+
+I actually would not mind having this tree in my app
+
+```
+app
+├── pure-code
+└── side-effects
+```
+
+Clear right?
+
+# Program to interfaces, not implementations
+
+That means that TDD enforces you to focus first on how would you like to use the functionality.
+
+In my mind I think first about declarative ways to use methods
+```js
+composeName('Alan', 'Smith')
+```
+
+knowing the signature of the function helps in composing the assertion. 
+
+```
+composeName :: (String, String) -> String
+```
+
+At some point you will have to import the module to test the method. What that module exposes is its API, and an API is nothing more than an interface. As you will see your architecture will get simpler and extendable.
+
+> Focus on the user, focus on the interface
 
 # Back-end - Node JS
 
