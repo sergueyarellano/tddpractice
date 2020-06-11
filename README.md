@@ -177,4 +177,4 @@ At some point you will have to import the module to test the method. What that m
 
 # Front-end - React
 
-- [Preparation and mental models](docs)
+- [Preparation and mental models](docs/f.part1.md)
