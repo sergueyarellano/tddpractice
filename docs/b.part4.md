@@ -40,7 +40,7 @@ Feature: Stores
       | distance | less than | 200   |
 ```
 
-First think that we should do is create a server. That server has to have and endpoint called `/stores` that accepts `GET` requests.
+First thing that we should do is create a server. That server has to have an endpoint called `/stores` that accepts `GET` requests.
 
 app/server.js
 ```js
@@ -109,8 +109,7 @@ function killProcess (child) {
 
 As you can see, integration tests requires a little bit more of preparation. But why? Think about what integration means, we are not testing atomic parts of our program, we are going out of that loop and testing the interconnection between larger pieces. Sounds scary, but the rewards are high. You can now present this tests to the customer to sign off when the feature is completed. See it as proof, as acceptance criteria.
 
-
-Well, if you were able to start and halt correctly the server using the hooks, you should see something like this:
+Well, if you were able to correctly start and halt the server using the hooks, you should see something like this:
 ![](bdd1.png)
 
 We can see that the first assertion (status code) passed, but the second about validating the interface of the response crashed. And that is totally fine, our server is returning a hello world message for now!
@@ -386,7 +385,7 @@ The test will pass, but there are some things that we can improve:
 - clone deep the payload whenever we expect to mutate it to avoid side-effects
 - abstract setters and getters and create simpler functions
 
-ok, but how can we make sure there are not mutations when we test? 
+Ok, but how can we make sure there are no mutations when we test? 
 
 > deep freezing my friend.
 
