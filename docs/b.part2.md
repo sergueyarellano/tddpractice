@@ -1,7 +1,7 @@
 TDD, BDD in Node JS - Part Two
 ===
 
-In part one I wrote about some concerns and decisions we need to make before adding TDD, BDD to our workflow. In part two we are going to focus in setting up our environment.
+In part 1 of this series I wrote about some concerns to keep in mind and decisions we need to make before adding TDD, BDD to our workflow. In part 2 we are going to focus in setting up our environment.
 
 You will learn:
 
@@ -85,7 +85,7 @@ function CustomWorld () {}
 setWorldConstructor(CustomWorld)
 ```
 
-Cucumber has a global store at an `scenario` level that you can access via using `this` keyword in your steps. It is called world and you have to define it and set it as a constructor, even though it is empty.
+Cucumber has a global store at a `scenario` level that you can access via using `this` keyword in your steps. It is called world and you have to define it and set it as a constructor, even though it is empty.
 
 sample.test.js
 ```js
@@ -139,4 +139,4 @@ We set up a cucumber js project with its typical structure, divided in:
 
 We also set up a sample unit test and started running our test suites in watch mode.
 
-In part three we focus on BDD testing with a use case
+In part 3 we focus on BDD testing with a use case.
