@@ -1,21 +1,21 @@
 TDD, BDD in Node JS - Part One
 ===
 
-Welcome to this workshop series. It is a series consisting in five parts focusing on the application of BDD, TDD to our every day workflow for an express/NodeJS application.
+Welcome to this workshop series. It is a series consisting of five parts focusing on the application of BDD and TDD to our every day workflow for an express/NodeJS application.
 
-In Part One we will discuss some mental models and patterns that will help us in our way to build a loosely coupled app.
+In Part One we will discuss some mental models and patterns that will help us on our way to build a loosely coupled app.
 
 You will learn:
 - basic knowledge of how BDD and TDD integrates in your workflow
-- some mental models and preparation that needs to be done before implementing BDD and TDD. 
+- some mental models and preparation that need to be done before implementing BDD and TDD. 
 - patterns and abstractions that go well with TDD
 - some functional programming concepts
 
-Come along and let's start with some preparation :)
+Come along and let's start with some preparation.
 
 # Some Preparation and Mental Models
 
-Test-driven development (TDD) encourages simple designs and inspires confidence
+Test-driven development (TDD) encourages simple designs and inspires confidence.
 
 It is a development process based on repetition of a simple cycle:
 
@@ -67,7 +67,7 @@ To first understand how we can apply TDD to our project we have to be honest wit
 - abstractions
 
 ## Patterns that work well
-Since I need to write a piece of code? that acts as a middleware (backend that receives requests and composes new ones to other domains), I'm going to choose the simplest pattern ever, the module pattern, which looks like this:
+Since I need to write a piece of code that acts as a middleware (backend that receives requests and composes new ones to other domains), I'm going to choose the simplest pattern ever, the module pattern, which looks like this:
 
 ```javascript
 module.exports = {
@@ -80,11 +80,11 @@ function method1 () {}
 
 function method2 () {}
 ```
-If you are asking why I don't use function expressions like `const method1 = () => {}` it is because they don't hoist (look for javascript hoisting if you are not sure) and this way you can open the file and see at a first glance the API you are exposing, `method1` and `method2`, instead of having to scroll to the bottom of the file.
+If you are asking why I don't use function expressions like `const method1 = () => {}` it is because they don't hoist (look for javascript hoisting if you are not sure) this way you can open the file and see at a first glance the API you are exposing, `method1` and `method2`, instead of having to scroll to the bottom of the file.
 
 ## Abstractions
 
-Fancy word isn't it? At the end of the day it means tools that you can use as a `semantic binding` for other tools. For example, something that helps us in composing larger programs with smaller ones.
+Fancy word, isn't it? At the end of the day it means tools that you can use as a `semantic binding` for other tools. For example, something that helps us in composing larger programs with smaller ones.
 
 I'm going to choose a composable abstraction that will help me implement the business logic (how data is changed/transformed) in a reusable and composable way. 
 
@@ -125,7 +125,7 @@ pipe(
 
 # Doing the research (2)
 
-Patterns and abstractions will help us in writing a loosely couple code, but we also need to decide which testing frameworks to use.
+Patterns and abstractions will help us in writing a loosely coupled code, but we also need to decide which testing frameworks to use.
 
 - unit test framework
 - integration test framework
