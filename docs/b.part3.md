@@ -1,18 +1,18 @@
 TDD, BDD in Node JS - Part Three
 ===
 
-In part two we set our environment. For part three let's talk to our PM and to our customer so we, as a team can understand what type of features the customer wants to get done. We will use Gherkin as natural language to try and achieve this.
+In part 2 we set our environment. For part 3 let's talk to our PM and to our customer so we, as a team, can understand what type of features the customer wants to get done. We will use Gherkin as natural language to try and achieve this.
 
 You will learn:
 
 - Gherkin as a tool to create acceptance criteria
-- importance of communication between customer and PM
+- Importance of communication between customer and PM
 - Black box testing or to "stop caring about the implementation"
 - Match Gherkin steps with Cucumber JS
 - Use TDD to write Validators
 
 # Writing features
-The customer needs a backend app that integrates other API's from third parties, but we need more specificity from the customer, in order to be in the same page, this is what the customer, my PM and I agreed on doing.
+The customer needs a backend app that integrates other API's from third parties, but we need more specificity from the customer. In order to be on the same page, this is what the customer, my PM, and I agreed on doing.
 
 ```gherkin
 Feature: Stores
@@ -38,7 +38,7 @@ Feature: Stores
       | distance | less than | 200   |
 ```
 
-As you can see it is very specific and maybe a little bit technical, so somebody could say that you lose readability using tables, but... why not? if you think about it, we need to design a backend, and a backend is always going to be more lower level. With this approach we are going to sleep better at night, and that is a very good reason!
+As you can see it is very specific and maybe a little bit technical, so somebody could say that you lose readability using tables, but... why not? if you think about it, we need to design a backend, and a backend is always going to be more lower level. With this approach we are going to sleep better at night, and that alone is a very good reason!
 
 # Step implementation
 
@@ -66,7 +66,7 @@ defineStep('request headers', async function (table) {
 
 For the step that says `I make a "GET" request to "stores"` we are going to actually make a request to our `stores` endpoint.
 
-Firstly, let's install an http customer
+Firstly, let's install an http customer:
 
 `npm i -S got`
 
@@ -83,15 +83,15 @@ defineStep('I make a {string} request to {string}', async function (method, endp
   this.response.body = JSON.parse(get(this.response, 'body', '{}'))
 })
 ```
-At this point you should an error like:
+At this point you should receiev an error like:
 
 ```
 RequestError: connect ECONNREFUSED 127.0.0.1:3000
 ```
 
-That is totally normal, because we started testing our endpoint, and it does not exist yet!
+This is totally normal, because we started testing our endpoint, and it does not exist yet!
 
-Nevertheless, in BDD we don't care about implementation details, let's keep trying to implement those steps:
+Nevertheless, in BDD we don't care about implementation details. Let's keep trying to implement those steps:
 
 ```js
 const { deepStrictEqual } = require('assert')
@@ -110,7 +110,7 @@ defineStep('I receive a {int} status code response', async function (status) {
 
 As you can see, using the expected status as a variable is making this step highly reusable for other scenarios.
 
-For the next one it is better to install a traverser like lodash get to access deep properties:
+For the next step it is better to install a traverser like lodash in order to get access to deep properties:
 
 `npm i -S lodash.get`
 
@@ -131,7 +131,7 @@ As you can see we need to validate that the expected interface is correct. In or
 
 # Apply TDD not only for production code
 
-It is really funny that we keep testing and applying BDD and TDD to our flow, but yet, we did not write a single line for production code. Nevertheless, you can feel that we are setting a very solid base for our app consisting on making assertions and predictions on how are app should behave and respond (that is why it is called behavioral driven testing ).
+It is really funny that we keep testing and applying BDD and TDD to our flow, but yet, we did not write a single line for production code. Nevertheless, you can feel that we are setting a very solid base for our app, consisting on making assertions and predictions on how our app should behave and respond (that is why it is called behavioral driven testing).
 
 unit/validators.test.js
 
@@ -208,14 +208,14 @@ const { isValidInterface } = require('../../app/validators')
 
 ```
 
-The error that the test throws will look now like this:
+The error that the test throws will now look like this:
 
 ```
 operator: deepEqual
 diff: "true" => "undefined"
 ```
 
-Now, we have to implement the minimal code that will make the test to pass
+Now, we have to implement the minimal code that will make the test pass:
 
 ```js
 function isValidInterface (input, model) {
@@ -241,7 +241,7 @@ function checkTypeWith (input, model) {
 
 Test is still passing, looks good, but what if we pass an array?
 
-Let's create another test
+Let's create another test:
 ```js
 test('isValidInterface() should take an interface model and an input object and check for type matching, with arrays', function ({ deepEqual, end }) {
   const model = {
@@ -264,7 +264,7 @@ test('isValidInterface() should take an interface model and an input object and 
   end()
 })
 ```
-test fails, but that is ok. let's add the minimal solution for this test to pass
+Test fails, but that is okay. let's add the minimal solution for this test to pass:
 
 ```js
 function checkTypeWith (input, model) {
@@ -278,7 +278,7 @@ function checkTypeWith (input, model) {
 }
 ```
 
-YAY, the test passed! but... it looks awful, I mean it looks like I'm talking to a computer here, also using `return` statements inside if-else statements give me shivers.
+Hooray! The test passed! but... it looks awful. I mean, it looks like I'm talking to a computer here, also using `return` statements inside if-else statements gives me the shivers.
 
 ```js
 function checkTypeWith (input, model) {
@@ -319,14 +319,14 @@ test('isValidInterface() should take an interface model and an input object and 
 
 # Back to our cucumber step
 
-No we can add the dependency
+No we can add the dependency:
 
 steps/generic.js
 ```js
 const { isValidInterface } = require('../../../app/validators')
 ```
 
-Let's move on to another step
+Let's move on to another step.
 
 ```js
 const get = require('lodash.get')
@@ -339,7 +339,7 @@ defineStep('{string} property has more than {int} element', async function (prop
 })
 ```
 
-That was easy right, making simple assertions using a traverser to access nested props and defaulting to a safe empty array. Although, defaulting here can be confusing, but we are going to leave it there.
+That was easy right? Specifically, making simple assertions using a traverser to access nested props and defaulting to a safe empty array. Although, defaulting here can be confusing, but we are going to leave it there.
 
 Now, I'm noticing a variation for this step:
 
@@ -351,14 +351,14 @@ Now, I'm noticing a variation for this step:
       | distance    | number |
 ```
 
-What we did in the TDD example? we assumed that it was just an object as input, and this is ok, but our step is assuming that `body.data` is an object and not an array. It is the perfect time to fix that, but we need to decide, adapt our `isValidInterface` to accept arrays or modify our step.
+What did we do in the TDD example? We assumed that it was just an object as input, and this is ok, but our step is assuming that `body.data` is an object and not an array. It is the perfect time to fix that, but we need to decide, adapt our `isValidInterface` to accept arrays, or modify our step.
 
-yeah...let's do TDD (just in case) and write another test for our function.
+Let's do TDD (just in case) and write another test for our function.
 
 
 # Always bet on TDD
 
-Create a new test, be specific on what you write as description, it helps a lot to understand what is the functionality you are testing
+Create a new test and be specific on what you write as description. It helps to understand what the functionality is that you are testing.
 
 ```js
 test('isValidInterface() should take an interface model and an input Array and check for type matching for each element', function ({ deepEqual, end }) {
@@ -403,7 +403,7 @@ function isValidInterface (input, model) {
 }
 ```
 
-It passed, but... looks repetitive right? refactor then
+It passed, but... it looks repetitive right? Refactor then:
 
 ```js
 function isValidInterface (input, model) {
@@ -426,14 +426,14 @@ function checkTypeWith (input, model) {
 }
 ```
 
-Wow, looks really good. I like so much that following this process encourages developers to do the right thing:
+Wow, that looks really good. I like that following this process encourages developers to do the right thing:
 
 - functional style
 - good abstractions
 - loosely coupled architecture
 - Inversion of control (no side effects)
 
-> Remember to add more test cases to try to break your functions, passing bad props, etc. It will force you to make decisions about error handling. Now it is time to prove yourself!
+> Remember to add more test cases to try to break your functions, passing bad props, etc. It will force you to make decisions about error handling. Now, it is time to prove yourself!
 
 # Back to cucumber steps. Again!
 
@@ -459,13 +459,13 @@ defineStep('every element on {string} property has {string}', async function (pr
 })
 ```
 
-The extra mapping methods, hashes and rows are provided by [cucumber](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/data_table_interface.md)
+The extra mapping methods, hashes, and rows are provided by [cucumber](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/data_table_interface.md)
 
-I think the signature of `complyWith` should be the same as the signature of `isValidInterface`, remember?
+I think the signature of `complyWith` should be the same as the signature of `isValidInterface`.
 
 `complyWith :: (Object, Object) -> Boolean`
 
-Let's TDD again to implement this method
+Let's TDD again to implement this method.
 
 # TDD is a discipline with high rewards
 
@@ -483,7 +483,7 @@ test('complyWith() should take an input object and some restrictions and check t
 })
 ```
 
-This is nice, but we have a problem, we are attacking the functionality from an incorrect perspective, because we have smaller problems we should solve first. How are we going to do it to substitute `less than` with something that makes sense? My Idea is that we could map over the restrictions and substitute `operator` prop with a matching function. Let's see what I'm talking about. Forget about the previous test, and start writing a new test:
+This is nice, but we have a problem. We are attacking the functionality from an incorrect perspective because we have smaller problems we should solve first. How are we going to do it to substitute `less than` with something that makes sense? My Idea is that we could map over the restrictions and substitute `operator` prop with a matching function. Let's see what I'm talking about. Forget about the previous test, and start writing a new test:
 
 ```js
 test('substituteOperators() should map operator property with the correct method', function ({ deepEqual, end }) {
@@ -512,7 +512,7 @@ test('substituteOperators() should map operator property with the correct method
 
 ```
 
-> Remember to implement more cases or assertions. We checked only the first element, you should check at least 2 and make cases to handle errors.
+> Remember to implement more cases or assertions. We checked only the first element, you should check at least two and make cases to handle errors.
 
 My implementation for this would be:
 
@@ -546,7 +546,7 @@ function substituteOperator (operators) {
 }
 ```
 
-let's go back to `complyWith` and start implementing, with the previous helper should be easier:
+Let's go back to `complyWith` and start implementing with the previous helper which should be easier:
 
 ```js
 function complyWith (input, restrictions) {
@@ -562,7 +562,7 @@ function applyOperator (input) {
 }
 ```
 
-And add a test case for input arrays
+And add a test case for input arrays:
 
 ```js
 function complyWith (input, restrictions) {
@@ -573,23 +573,23 @@ function complyWith (input, restrictions) {
 }
 ```
 
-At first it is tough, but see what we have accomplished
+At first it is tough, but see what we have accomplished:
 
 - good coverage of your code
 - feeling of having done a good job
 - proof that you care about what you code
 
-> Remember to implement cases for handling errors, but be careful, don't  make new abstractions that you don't need yet. Follow the process, it will tell you when to refactor, that's what you get with experience. First, write the test case. watch it fail, implement, watch it pass, refactor.
+> Remember to implement cases for handling errors, but be careful, don't  make new abstractions that you don't need yet. Follow the process as it will tell you when to refactor, and that's what you get with experience. First, write the test case. watch it fail, implement, watch it pass, refactor.
 
 
 Lastly, require `complyWith` from your generic steps file.
 
 # Summary
 
-PM, customer and developer are in the same page when they talk and agreed on scenarios for specific features.
+PM, customer and developer are on the same page when they talk and agree on scenarios for specific features.
 
 We implemented the steps for that specific scenario in cucumber, using TDD in the process to design validators and other helper functions.
 
 We did not write a single line of production code to set up our integration tests, which proves the BDD principle of `black box` testing or not caring about implementation details.
 
-In part four we will dive into production code using TDD and finally satisfying our BDD tests
+In part 4 we will dive into production code using TDD and finally satisfying our BDD tests.
