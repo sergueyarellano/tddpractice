@@ -1,9 +1,9 @@
 TDD, BDD in Node JS - Part Four
 ===
 
-In part three we got our first feature and implemented its steps in cucumber. We did everything using TDD as part of our BDD process.
+In Part three we got our first feature and implemented its steps in cucumber. We did everything using TDD as part of our BDD process.
 
-In part four we will try to apply TDD to produce our production code. 
+In Part four we will try to apply TDD to produce our production code. 
 
 What you will learn:
 - Use of cucumber hooks to prepare the environment
@@ -40,7 +40,7 @@ Feature: Stores
       | distance | less than | 200   |
 ```
 
-First thing that we should do is create a server. That server has to have an endpoint called `/stores` that accepts `GET` requests.
+First let's create a server. That server must have an endpoint called `/stores` that accepts `GET` requests.
 
 app/server.js
 ```js
@@ -53,7 +53,7 @@ app.listen(port, () => console.log(`app magic happens on port ${port}`))
 
 ```
 
-Now we need to start this server automatically whenever we execute our integration test. We will use cucumber hooks for that. It is also important to kill every process that we started after all test are executed. We will use another hook to do that. Follow along with me in the next piece of code
+Now we need to start this server automatically whenever we execute our integration test. We will use cucumber hooks for that. It is also important to kill every process that we started after all test are executed. We will use another hook to do that. Follow along with me in the next piece of code:
 
 hooks.js
 ```js
@@ -107,14 +107,14 @@ function killProcess (child) {
 }
 ```
 
-As you can see, integration tests requires a little bit more of preparation. But why? Think about what integration means, we are not testing atomic parts of our program, we are going out of that loop and testing the interconnection between larger pieces. Sounds scary, but the rewards are high. You can now present this tests to the customer to sign off when the feature is completed. See it as proof, as acceptance criteria.
+As you can see, integration tests requires a little bit more preparation. Why, you ask? Think about what integration means. We are not testing atomic parts of our program, we are going out of that loop and testing the interconnection between larger pieces. Sounds scary, but the rewards are high. You can now present this tests to the customer to sign off when the feature is completed. See it as proof, as acceptance criteria.
 
 Well, if you were able to correctly start and halt the server using the hooks, you should see something like this:
 ![](bdd1.png)
 
 We can see that the first assertion (status code) passed, but the second about validating the interface of the response crashed. And that is totally fine, our server is returning a hello world message for now!
 
-Now it is time to start implementing the endpoint. Here is an idea with the nice pipe pattern I mentioned in part one.
+Now it is time to start implementing the endpoint. Here is an idea with the nice pipe pattern I mentioned in Part one:
 
 ```js
 app.get('/stores', (req, res) => {
@@ -145,7 +145,7 @@ I always start writing how I would like to use an API, it is really important to
 
 
 # Creating the pipe function
-I recommend to use the pipe function from a library that had tested the function already, but for the sake of clarity, let's write ourselves:
+I recommend to use the pipe function from a library that has tested the function already, but for the sake of clarity, let's write it ourselves:
 
 tools.test.js
 ```js
@@ -161,7 +161,7 @@ test('pipe', function ({ deepEqual, end }) {
 })
 ```
 
-Test will fail, let's satisfy the first assertion
+The test will fail, let's satisfy the first assertion.
 
 tools.js
 ```js
@@ -173,19 +173,19 @@ function pipe (fn) {
   return value => fn(value)
 }
 ```
-and the signature is 
+and the signature is: 
 
 `pipe :: fn -> number -> number`
 
-Higher order functions, fancy stuff? maybe, but very powerful.
+Higher order functions, fancy stuff? Maybe, but very powerful.
 
-it reads: 
+It reads: 
 
 > `pipe takes a function and returns another function that takes a number and returns a number` 
 
 
 
-But the real pipe does not have that signature! imagine that we could only use pipe passing only one function. What a waste!
+But the real pipe does not have that signature! Imagine that we could only use pipe passing only one function. What a waste!
 
 tools.test.js
 ```js
@@ -196,14 +196,14 @@ tools.test.js
     deepEqual(actual, expected, msg)
   }
 ```
-This test will pass, but it is a false positive because pipe is only executing the first identity function. You have to be aware of this kind of FALSE POSITIVES when you TDD functions.
+This test will pass, but it is a false positive because pipe is only executing the first identity function. You have to be aware of these kind of FALSE POSITIVES when you complete TDD functions.
 
 ```js
 function pipe (...fns) {
   return input => fns.reduce((previousOutput, fn) => fn(previousOutput), input)
 }
 ```
-So with pipe, it is just a matter of iterating through the functions we pass and keep applying the output to the current function that the previous functions produced. The signature for our pipe:
+So with pipe, it is just a matter of iterating through the functions we pass and keep applying the output to the current function that the previous functions produced. The signature for our pipe is:
 
 `pipe :: ([any -> any]) -> any -> any`
 
@@ -224,7 +224,7 @@ We could keep adding tests:
   }
   ...
 ```
-There are some rules that pipe should comply with, like composition.
+There are some rules that pipe should comply with like composition.
 
 Try to figure out with testing first how to design the async version of pipe. What would be the signature now for pipe? would it change at all?
 
@@ -248,11 +248,11 @@ async value => 2 * value // asyncMultiplyBy2
 )(1) // 4
 ```
 
-Wanted to know what a monad is, there you go! now we have a system that wraps and unwraps values, map over values, flexible and composable. A Promise looks already like a monadic value, and it also has a `then` method that looks really similar to a `map` method if you think about it.
+If you wanted to know what a monad is, there you go! Now we have a system that wraps and unwraps values, map over values, and is flexible and composable. A Promise looks already like a monadic value, and it also has a `then` method that looks really similar to a `map` method if you think about it.
 
 # Use pipe in the middleware code
 
-our middleware now looks like this:
+Our middleware now looks like this:
 
 ```js
 const express = require('express')
@@ -291,7 +291,7 @@ pipe(
 })
 ```
 
-even better, create a factory function:
+Even better, create a factory function:
 
 ```js
 pipe(
@@ -303,9 +303,9 @@ function lift(config = {}, body = {}) {
 }
 ```
 
-Two things here:
+Two things to note here:
 
-- The name `lift` is just a fancy functional way to call this function, but in fact, we are kind of "lifting" the type here to a type structure that we are going to maintain all along the pipe flow. We will refer to the structure that we just created as "lifted type" or "payload"
+- The name `lift` is just a fancy functional way to call this function, but in fact, we are kind of "lifting" the type here to a type structure that we are going to maintain all along the pipe flow. We will refer to the structure that we just created as "lifted type" or "payload".
 - We did not start with a test because there is no need to test a simple factory function. Trying to achieve 100% coverage is just not focusing where you need to focus.
 
 We can move now the `lift` function to `tools.js`
@@ -355,7 +355,7 @@ test('composeRequest() should compose request options so they can be consumed by
 ```
 `composeRequest` is a function that will create the options to be used by the next step to make the request. Its signature accepts the type `Payload` and should return the type `Payload` because every step function has to comply with that rule.
 
-Watch the test fail, then implement
+Watch the test fail, then implement.
 
 ```js
 function composeRequest (payload) {
@@ -424,7 +424,7 @@ test('composeRequest() should compose request options so they can be consumed by
 })
 ```
 
-And the test will fail now. Fix the function to pass the test
+The test will fail now. Fix the function to pass the test.
 
 tools.js
 ```js
@@ -473,7 +473,7 @@ async function makeRequest (payload) {
 
 Now it is a good idea to crete a sandbox/stub for the third party that we will start automatically every time we execute our integration tests.
 
-We can use express here to create a stub
+We can use express here to create a stub:
 
 test/mocks/stub.js
 ```js
@@ -520,7 +520,7 @@ app.get('/data', (req, res) => {
 app.listen(port, () => console.log(`stub magic happens on port ${port}`))
 ```
 
-The data we are responding with it is data that matches the third party structures. Our job after we request the data is to filter, map it and return it to the costumer if needed. First, remember that we have to start this stub in cucumber hooks in the same way we start our middleware.
+The data we are responding with is data that matches the third party structures. Our job after we request the data is to filter, map it, and return it to the costumer if needed. First, remember that we have to start this stub in cucumber hooks in the same way we start our middleware.
 
 # TDD mapResponse
 
@@ -543,7 +543,7 @@ app.get('/stores', async (req, res) => {
 })
 ```
 
-Our next task should be designing `mapResponse` in a way that with just providing a "contract" with this structure
+Our next task should be designing `mapResponse` in a way that with just providing a "contract" with this structure.
 
 ```js
 contract: {
@@ -552,7 +552,7 @@ contract: {
     }
 ```
 
-and a response of this type
+and a response of this type:
 
 ```js
 {
@@ -561,7 +561,7 @@ and a response of this type
 }
 ```
 
-the result would be 
+the result would be: 
 
 ```js
 {
@@ -613,17 +613,17 @@ test('mapResponse() should map a given body response to the structure desired', 
 })
 ```
 
-Notice that when doing TDD you are always in the trenches, having to decide wether your API provides one contract or another. For `mapResponse` you can see that we decided to use it as a step in the pipe function and now it has to ingest the whole payload to do a simple mapping. We can feel that maybe it is not aiming in the right direction. In part 5 we will learn how we can create proper functional abstractions to improve our aiming.
+Notice that when doing TDD you are always in the trenches, having to decide whether your API provides one contract or another. For `mapResponse` you can see that we decided to use it as a step in the pipe function and now it has to ingest the whole payload to do a simple mapping. We can feel that maybe it is not aiming in the right direction. In Part 5 we will learn how we can create proper functional abstractions to improve our aiming.
 
-We decided with the test that mapResponse is gonna have to do the following:
+We decided with the test that mapResponse is going to have to do the following:
 - get the contract from a fixed path
 - get the response from a fixed path
 - iterate over the response if it is an array
 - map over every key according to the contract
 
-Lot of stuff right. It looks like this function is doing a lot of stuff. That is why we should split the problem.
+Lots of stuff, right? It looks like this function is doing a lot, that is why we should split the problem.
 
-let's create our mapKeys function:
+Let's create our mapKeys function:
 
 ```js
 test('mapKeysWith() should map the keys of input object according to a template or contract', async function ({ deepEqual, end }) {
@@ -636,7 +636,7 @@ test('mapKeysWith() should map the keys of input object according to a template 
 })
 ```
 
-This test looks more cut to chase of the problem. We will comment or skip the `mapResponse` test for now, as it looks more like an integration.
+This test looks more like a 'cut to the chase' kind of problem. We will comment or skip the `mapResponse` test for now, as it looks more like an integration.
 
 ```js
 function mapKeysWith (data, contract) {
@@ -646,7 +646,7 @@ function mapKeysWith (data, contract) {
 }
 ```
 
-There is a nice function that we could is from lodash called `invert` that would be a perfect fit. Our contract has a structure that the user understands `x, y` but for the substitution it would be nicer if we have a better way to access the props.
+There is a nice function that we could use from lodash called `invert` that is a perfect fit. Our contract has a structure that the user understands `x, y` but for the substitution it would be nicer if we have a better way to access the props.
 
 `npm i -S lodash.invert`
 
@@ -659,11 +659,11 @@ function mapKeysWith (data, contract) {
 }
 ```
 
-Now you have the opportunity to implement other cases. What will happen if input data has null, undefined values. What happens if the contract expects to have some properties in the input, but they are not there? You have to decide the way this function handle those things. It is your turn!
+Now you have the opportunity to implement other cases. What will happen if input data has null, undefined values. What happens if the contract expects to have some properties in the input, but they are not there? You have to decide the way this function handle those things. Now it's your turn!
 
 # Back to mapResponse
 
-This is how the test should look like:
+This is how the test should look:
 
 ```js
 test('mapResponse() should map a given body response to the structure desired', async function ({ deepEqual, end }) {
@@ -706,9 +706,9 @@ test('mapResponse() should map a given body response to the structure desired', 
 })
 ```
 
-Looks neat, but it is a bit of a pain passing large structures to test this function. As I mentioned before, part 5 will focus on different mental models and abstractions to improve our solutions with smart refactoring. Hang in there, we are making a lot of progress!
+Looks neat, but it is a bit of a pain passing large structures to test this function. As I mentioned before, Part 5 will focus on different mental models and abstractions to improve our solutions with smart refactoring. Hang in there, we are making a lot of progress!
 
-Let's update our pipe function with our mapResponse component
+Let's update our pipe function with our mapResponse component.
 
 ```js
   const responseBody = await pipe(
@@ -775,7 +775,7 @@ test('createResult() should produce a formatted structure to use as response', a
 })
 ```
 
-As you can see this looks more like an integration test. Our functions might be doing more than one thing at time. For now it is a decision we made, so let's proceed with the implementation for that.
+As you can see this looks more like an integration test. Our functions might be doing more than one thing at a time. For now, it is a decision we made, so let's proceed with the implementation for that.
 
 
 ```js
@@ -790,11 +790,11 @@ function createResult (payload) {
 }
 ```
 
-Really easy implementation. As for now, you should have noticed that we are repeating some patterns here. What would be your ideas to refactor?
+This is a really easy implementation. As for now, you should have noticed that we are repeating some patterns here. What would be your ideas to refactor?
 
 # Sending back a proper response
 
-Our endpoint should look like this
+Our endpoint should look like this:
 
 ```js
 app.get('/stores', async (req, res) => {
@@ -823,13 +823,13 @@ app.get('/stores', async (req, res) => {
 
 The configuration looks good. We provided the correct request info and also the contract that will work as an adapter or model to map the response we will receive from the third party.
 
-Take a look at the BDD test output
+Take a look at the BDD test output.
 
 ![](bdd2.png)
 
 Amazing, three assertions are passing, but there is some failure in the assertion that checks the structure of every element in `body.data`, we can log the output and start debugging.
 
-ok, there is a problem in our mapping. Each element is mapped to this structure.
+There is a problem in our mapping. Each element is mapped to this structure.
 
 ```js
     {
@@ -840,7 +840,7 @@ ok, there is a problem in our mapping. Each element is mapped to this structure.
       distance: 220
     },
 ```
-The element comes like this from the third party
+The element comes like this from the third party:
 
 ```js
     {
@@ -851,7 +851,7 @@ The element comes like this from the third party
       range: 220
     },
 ```
-our contract looks like this:
+Our contract looks like this:
 
 ```js
     contract: {
@@ -862,11 +862,11 @@ our contract looks like this:
     }
 ```
 
-Well, we did not want to use `type` property from the 3d party because it was repetitive. This means that we have a bug. The mapper is not skipping properties that does not exist in our contract.
+Well, we did not want to use `type` property from the third party because it is repetitive. This means that we have a bug. The mapper is not skipping properties that do not exist in our contract.
 
 # One bug?, one test
 
-This is rule of thumb. if you find a bug, you need a test.
+This is a rule of thumb. If you find a bug, you need a test.
 
 ```js
 test('mapResponse() should map a given body response to the structure desired', async function ({ deepEqual, end }) {
@@ -912,7 +912,7 @@ test('mapResponse() should map a given body response to the structure desired', 
 })
 ```
 
-Now it is time for you to implement the solution. If you are creating semantic commits you could write something like
+Now it is time for you to implement the solution. If you are creating semantic commits you could write something like:
 
 `fix: remove undefined property generated in mapKeys` 
 
@@ -921,17 +921,17 @@ Now it is time for you to implement the solution. If you are creating semantic c
 
 > Always add tests to your fix commits
 
-Once fixed, our BDD test has one last reason to fail
+Once fixed, our BDD test has one last reason to fail:
 
 ![](bdd3.png)
 
 Check the response body once again, we are not filtering stores that are farther than 200. That is why the assertion is failing.
 
-OK, a filter step is needed.
+Okay, a filter step is needed.
 
 # Filters
 
-I have an idea, since we are using a config object for that specific endpoint, we could add something like this that could work perfectly with our solution
+I have an idea, since we are using a config object for that specific endpoint, we could add something like this that could work perfectly with our solution:
 
 ```js
   const config = {
@@ -999,11 +999,11 @@ function filterResponse (payload) {
 }
 ```
 
-Once the unit test pass, let's see what is going on in our BDD test
+Once the unit test passes, let's see what is going on in our BDD test
 ![](bdd5.png)
 
 # Summary
 
-We implemented our production code using TDD with the focus on making the BDD test pass. We had to make decisions on the way about how particular modules will be consumed. Also TDD and functional programming made us structure our code in a loosely couple manner. We have unit tests and integration tests covering our first feature.
+We implemented our production code using TDD with the focus on making the BDD test pass. We had to make decisions on the way about how particular modules will be consumed. TDD and functional programming made us structure our code in a loosely coupled manner. We have unit tests and integration tests covering our first feature.
 
-Go on a see part 5 where we will refactor and throw some ideas and mental models.
+Part 5 you will see where we will refactor and throw in some new ideas and mental models.
