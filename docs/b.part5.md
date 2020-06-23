@@ -1,9 +1,9 @@
 TDD, BDD in Node JS - Part Five
 ===
 
-In part 4 we implemented the necessary code to satisfy the assertions we made in the acceptance criteria we stipulated with the customer/PO and PM for that specific feature.
+In Part 4 we implemented the necessary code to satisfy the assertions we made in the acceptance criteria which we stipulated with the customer/PO and PM for that specific feature.
 
-In part five you will learn:
+In Part 5 you will learn:
 - the importance of decision making in BDD, TDD projects
 - Possible problems and how to approach them
 - How to approach a refactor
@@ -37,7 +37,7 @@ Feature: Stores
 
 Another question that the PM can ask you is how granular the features should be. In my opinion, developers have to try to understand the business value or how the features and scenarios are presented. If they are presented in a way that would make the test very complex, you should talk to your PM to split those scenarios/features in smaller cases. Only experience can tell you what is the best approach.
 
-It is a process to adapt to BDD, TDD, the benefits are huge, but there are going to be obstacles in our way. It could be inexperience from both business and dev parts, not understanding how to write features or something else.
+It is a process to adapt to BDD, TDD. The benefits are huge, but there are going to be obstacles in our way. It could be inexperience from both business and dev parts, not understanding how to write features, or something else entirely.
 
 > Try to make it simple and always do what is going to help you sleep at night
 
@@ -50,9 +50,9 @@ Rule of thumb about refactoring
 
 A rookie mistake is to approach a refactor without tests.
 
-How you make sure that doing modifications to a component or components does not affect the outcome? with manual testing? logging a couple things?
+How do you ensure that doing modifications to a component or components does not affect the outcome? With manual testing? Logging a couple of things?
 
-If you are a senior developer, then you know that you have to do the right thing and in my opinion with elegance and some philosophy behind.
+If you are a senior developer, you know that you have to do the right thing. In my opinion, do it with elegance and some philosophy.
 
 > I test my code because I feel responsible for what I write
 
@@ -105,7 +105,7 @@ test('filterResponse() should apply filters specified in config object to mapped
 
 ```
 
-the problem here is that we have to provide an entire payload structure, but we really don't need to do that if we create an abstraction like this
+the problem here is that we have to provide an entire payload structure, but we really don't need to do that if we create an abstraction like this:
 
 ```js
 setWith('my.path', applyFilters(filters))
@@ -144,7 +144,7 @@ test('setWith() takes a path and a function', async function ({ deepEqual, end }
 })
 ```
 
-If we had passed an `identity` function instead of JSON.parse the implementation to make that test pass would be
+If we had passed an `identity` function instead of JSON.parse the implementation to make that test pass would be:
 
 ```js
 function setWith (path, modifier) {
@@ -154,7 +154,7 @@ function setWith (path, modifier) {
 
 Notice that the test can trick you sometimes. Passing the identity does not make sure that you have to apply it to pass the test. That is why we passed another function like JSON.parse. Nevertheless, if we pass the identity function it has to work too!
 
-The code to pass the test
+The code to pass the test is:
 
 ```js
 function setWith (path, modifier) {
@@ -168,7 +168,7 @@ function setWith (path, modifier) {
 
 Powerful abstraction right?
 
-It is time now that you try to refactor the code with this abstraction. Fix the tests accordingly.
+It is now time for you to try to refactor the code with this abstraction. Fix the tests accordingly.
 
 The endpoint should look like this:
 
@@ -211,7 +211,7 @@ function applyFilters (filters) {
 
 # Making abstractions might not be the best thing
 
-Compare the two lines below
+Compare the two lines below.
 
 ```js
 setWith('data.mappedResponse', applyFilters(config.filters))
@@ -241,13 +241,13 @@ defineStep('I make a {string} request to {string}', async function (method, endp
 })
 ```
 
-Easy right? now we just need to change the script in package. and pass `HOST=http://localhost:3000` or the domain pointing to production. There are several tools like `dotenv` that can help you here. Remember not to abuse on this.
+Easy right? Now we just need to change the script in package and pass `HOST=http://localhost:3000` or the domain pointing to production. There are several tools like `dotenv` that can help you here. Remember not to abuse this.
 
-> Adapting your production code to environment variables or adding branching it is an anti-pattern and should be avoided in most of cases
+> Adapting your production code to environment variables or adding branching is an anti-pattern and should be avoided in most cases.
 
 You can do the same exercise for our express app. Remember to spawn the child process passing the required environment variable.
 
-Merge from lodash can help in that.
+Merge from lodash can help with that.
 
 ```
 const ps = spawn(server.command, server.args)
@@ -256,7 +256,7 @@ const ps = spawn(server.command, server.args)
 
 # Summary
 
-Making abstractions is something that you should discuss with your team mates. Try to always maintain readability and keep a declarative style.
+Making abstractions is something that you should discuss with your teammates. Try to always maintain readability and keep a declarative style.
 
 Identify patterns repeating again and again, but don't be too eager to make the abstraction too soon.
 
