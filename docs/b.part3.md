@@ -66,7 +66,7 @@ defineStep('request headers', async function (table) {
 
 For the step that says `I make a "GET" request to "stores"` we are going to actually make a request to our `stores` endpoint.
 
-Firstly, let's install an http customer:
+Firstly, let's install an http client:
 
 `npm i -S got`
 
